@@ -13,6 +13,7 @@
 
 - name: Copy Docker environment config file
   template: src=docker.j2 dest={{ system_env_dir }}/docker
+  register: change_docker_env
 
 - name: Add any insecure registries to Docker config
   when: insecure_registries is defined and insecure_registries | length > 0
@@ -29,3 +30,9 @@
     state: started
     enabled: yes
   register: started_docker
+
+- name: Restart Docker service
+  when: (not started_docker.changed) and (change_docker.changed)
+  systemd:
+    name: docker
+    state: restarted
