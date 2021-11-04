@@ -6,7 +6,7 @@ kube_version: v1.22.2
 token: b0f7b8.8d1767876297d85c
 
 # 1.8.x feature: --feature-gates SelfHosting=true
-init_opts: ""
+init_opts: "--control-plane-endpoint=flapjack0811-k8s.duckdns.org"
 
 # Any other additional opts you want to add..
 kubeadm_opts: ""
